@@ -9,29 +9,29 @@ def create_cube():
     bpy.ops.mesh.primitive_cube_add(size=1)
     return bpy.context.object 
 
-def subdivide(obj,name,levels,apply):
+def subdivide(obj,name,levels=5,apply=True):
     subdiv_modifier = obj.modifiers.new(type='SUBSURF',name=name)
     subdiv_modifier.levels = levels
     if apply:
         bpy.ops.object.modifier_apply(modifier=subdiv_modifier.name)
-    return bpy.context.object
+    
         
 
-def spherify(obj,name,apply):
+def spherify(obj,name,apply=True):
     cast_modifier = obj.modifiers.new(type='CAST',name=name)
     if apply:
          bpy.ops.object.modifier_apply(modifier=cast_modifier.name)
-    return bpy.context.object
+    
         
 
-def decimate(obj,name,apply):
+def decimate(obj,name,degrees = 20,apply=True):
     decimate_modifier = obj.modifiers.new(type='DECIMATE',name=name)
     decimate_modifier.decimate_type = 'DISSOLVE'
     decimate_modifier.angle_limit = 0.349066
     decimate_modifier.use_dissolve_boundaries = True
     if apply:
         bpy.ops.object.modifier_apply(modifier=decimate_modifier.name)
-    return bpy.context.object
+    
         
         
 
@@ -49,7 +49,7 @@ def create_unique_sphere():
     
     
     #Decimate it(planar surface)
-    decimate(cube,'decimate_cube',True)
+    decimate(cube,'decimate_cube',20,True)
 
 
 
